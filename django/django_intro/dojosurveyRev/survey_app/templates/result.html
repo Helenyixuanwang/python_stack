@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dojo Survey Result</title>
+    {% load static %}
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div id="container">
+        <h2>Submitted Info</h2>
+        <p>Name: {{ result.name }}</p>
+        <p>Dojo Location:{{ result.location }}</p>
+        <p>Favorite Language:{{ result.language }}</p>
+        <p>Comment: {{ result.comment }}</p>
+        <a href="/" class="btn btn-primary">Go Back</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,97 @@
+pip install Django==1.11.9
+
+//output is
+Collecting Django==1.11.9
+  Downloading Django-1.11.9-py2.py3-none-any.whl (6.9 MB)
+Collecting pytz
+  Downloading pytz-2021.1-py2.py3-none-any.whl (510 kB)
+Installing collected packages: pytz, Django
+Successfully installed Django-1.11.9 pytz-2021.1
+WARNING: You are using pip version 20.2.3; however, version 21.0.1 is available.
+You should consider upgrading via the 'c:\users\wangy\onedrive\desktop\coding dojo\python_stack\my_environments\py3env\scripts\python.exe -m pip install --upgrade pip' command.
+(py3Env)
+--------------------------------------
+MY UNDERSTANDING: A specific Django package is installed in my virtual env.
+==========================================================================
+pip list
+
+//output is : 
+Package    Version
+---------- -------
+Django     1.11.9
+pip        20.2.3
+pytz       2021.1
+setuptools 49.2.1
+WARNING: You are using pip version 20.2.3; however, version 21.0.1 is available.
+You should consider upgrading via the 'c:\users\wangy\onedrive\desktop\coding dojo\python_stack\my_environments\py3env\scripts\python.exe -m pip install --upgrade pip' command.
+(py3Env)
+-----------
+my understanding is : After the pip installation command. I can see that the Django of the specific version has been successfuly installed here.
+============================================================================
+
+deactivate
+
+--------------------
+My understanding: My virtual environment will be deactivated.
+============================================================================
+
+pip3 list
+
+//output is :
+Package    Version
+---------- -------
+pip        21.0.1
+setuptools 49.2.1
+-----------------------------------------------------------------------------
+My understanding: The packages listed here is less than those of listed in my virtual environment using command " pip list".
+==============================================================================
+
+source my_environments/py3Env/Scripts/activate
+------------------------------------------------------------------------------
+remark: re-activate the virtual env
+==============================================================================
+
+pip install Django==1.11.9
+
+//output:
+Requirement already satisfied: Django==1.11.9 in c:\users\wangy\onedrive\desktop\coding dojo\python_stack\my_environments\py3env\lib\site-packages (1.11.9)
+Requirement already satisfied: pytz in c:\users\wangy\onedrive\desktop\coding dojo\python_stack\my_environments\py3env\lib\site-packages (from Django==1.11.9) (2021.1)
+WARNING: You are using pip version 20.2.3; however, version 21.0.1 is available.
+You should consider upgrading via the 'c:\users\wangy\onedrive\desktop\coding dojo\python_stack\my_environments\py3env\scripts\python.exe -m pip install --upgrade pip' command.
+(py3Env)
+----------------------------------------------------------------
+remark: packaged installed again, but it indicate that requirement already satisfied.
+====================================================================
+
+pip freeze
+
+//output
+Django==1.11.9
+pytz==2021.1
+(py3Env)
+-----------------------------------------------------------------------
+remark: pip list shows ALL installed packages. pip freeze shows packages YOU installed via pip in a virtual env. 
+==========================================================================
+
+pip freeze > requirements.txt
+
+-----------------------------------------------------------------------------
+remark: The output is written into file requirements.txt under directory ~/Desktop. In this newly produced txt file, lists two lines as follows:
+Django==1.11.9
+pytz==2021.1
+=============================================================================
+
+pip uninstall Django
+----------------------------------------------------------
+remark: package Django is removed in my virtual env.
+===========================================================================
+
+pip show Django
+
+//output
+WARNING: Package(s) not found: Django
+(py3Env)
+---------------------------------------------------------------
+remark: Since package Django is removed in previous step, it is not found when you want to show it using pip command.
+======================================================================
+

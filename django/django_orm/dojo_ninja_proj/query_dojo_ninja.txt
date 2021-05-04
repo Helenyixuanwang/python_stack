@@ -1,0 +1,68 @@
+Run the shell and import your models    
+    from dojo_ninja_app.models import *
+Query: Create 3 new dojos:
+    dojo1 = Dojo.objects.create(name="seattle_dojo", city="seattle", state="WA")
+    dojo2= Dojo.objects.create(name="chicago_dojo", city="chicago", state="IL")
+     dojo3= Dojo.objects.create(name="dallas_dojo", city="dallas", state="TX")
+Query: Delete the 3 dojos you just created
+    dojo_todelete = Dojo.objects.get(id=1)
+    c=Dojo.objects.get(id=2)
+    c.delete()
+    c= Dojo.objects.get(id=3)
+    c.delete()
+Query: Create 3 more dojos
+    >>> dojo4=Dojo.objects.create(name="boise_dojo", city="boise", state="ID")
+    >>> dojo5=Dojo.objects.create(name="silican_dojo", city="santa clara", state="CA")
+    >>> dojo6=Dojo.objects.create(name="los_dojo", city="los angeles", state="CA")
+Query: Create 3 ninjas that belong to the first dojo
+    >>> ninja1= Ninja.objects.create(first_name="apple",last_name="li", dojo=Dojo.objects.get(id=4))
+    >>> ninja2= Ninja.objects.create(first_name="pear",last_name="wang", dojo=Dojo.objects.get(id=4))
+    >>> ninja3= Ninja.objects.create(first_name="orange",last_name="dai", dojo=Dojo.objects.get(id=4))
+Query: Create 3 ninjas that belong to the second dojo
+    >>>ninja4= Ninja.objects.create(first_name="cat",last_name="mao", dojo=Dojo.objects.get(id=5))
+    >>> ninja5 = Ninja.objects.create(first_name="dog",last_name="gou", dojo=Dojo.objects.get(id=5))
+    >>> ninja6 = Ninja.objects.create(first_name="fish",last_name="yu", dojo=Dojo.objects.get(id=5))
+
+Query: Create 3 ninjas that belong to the third dojo
+    >>> ninja7 = Ninja.objects.create(first_name="lily",last_name="he", dojo=Dojo.objects.get(id=6))
+    >>> ninja8 = Ninja.objects.create(first_name="jasmine",last_name="mo", dojo=Dojo.objects.get(id=6))
+    >>> ninja9 = Ninja.objects.create(first_name="rose",last_name="mei", dojo=Dojo.objects.get(id=6))
+Query: Retrieve all the ninjas from the first dojo
+    >>> one_dojo=Dojo.objects.get(id=4)
+    >>> for ninja in one_dojo.ninjas.all():
+...     print(ninja.first_name, ninja.last_name)
+
+apple li
+pear wang
+orange dai
+
+Query: Retrieve all the ninjas from the last dojo
+    >>>one_dojo = Dojo.objects.get(id=6)
+    >>> for ninja in one_dojo.ninjas.all():
+...     print(ninja.first_name, ninja.last_name)
+...
+lily he
+jasmine mo
+rose mei
+
+Query: Retrieve the last ninja's dojo
+>>> ninja = Ninja.objects.get(id=9)
+>>> print(ninja.dojo.name)
+>>>los_dojo
+
+Add a new text field called "desc" to your Dojo class
+    in Dojo class add "desc=models.TextField()"
+
+Create and run the migration files to update the table in your database. If needed, provide a default value of "old dojo"
+    python manage.py makemigrations
+    python manage.py migrate
+
+Query: Create a new dojo
+>>> from dojo_ninja_app.models import *
+>>> new_dojo = Dojo.objects.create(name="portland_dojo", city="portland", state="OR", desc="This is a newly added field")
+>>> new_dojo.desc
+'This is a newly added field'
+>>>
+
+
+

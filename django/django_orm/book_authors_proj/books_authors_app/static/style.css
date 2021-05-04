@@ -1,0 +1,12 @@
+.container {
+    display:flex;
+    border: 1px solid blue;
+}
+
+.add-book {
+    display:inline-block;
+}
+
+.book-list {
+    display: inline-block;
+}

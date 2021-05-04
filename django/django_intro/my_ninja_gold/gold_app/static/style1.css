@@ -1,0 +1,34 @@
+.container {
+    width:100%;
+    background-color: gray;
+    color:black;
+}
+
+
+#clear {
+    padding:5px;
+    justify-content:right;
+   
+}
+
+.container + h1 {
+    display:inline-block;
+}
+h1 {
+    color:goldenrod;
+}
+.card {
+    margin:10px;
+}
+.form-floating {
+    overflow-y: scroll;
+    height:500px;
+}
+
+.red {
+    color:red;
+}
+.green {
+    color:green;
+}
+

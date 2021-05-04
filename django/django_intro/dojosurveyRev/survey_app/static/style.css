@@ -1,0 +1,11 @@
+body {
+    padding: 2em;
+    background-color:burlywood;
+}
+form, div#container {
+    padding: 2em;
+}
+
+#container > h2 {
+    border-bottom: solid 1px black;
+}

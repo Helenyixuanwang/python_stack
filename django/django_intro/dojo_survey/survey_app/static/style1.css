@@ -1,0 +1,8 @@
+.container {
+    width:60%;
+    background-color: cadetblue;
+}
+
+.container > h1 {
+    border-bottom: 1px solid rgb(185, 124, 124);
+}
