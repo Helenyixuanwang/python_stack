@@ -97,7 +97,7 @@
           {% csrf_token %}
           <ul>
             <input type="hidden" name="dojo_id_todelete" value="{{dojo.id}}" />
-            <span id="bold_dojo">Ninjas at {{dojo.name}}</span><button type="submit" class="btn btn-danger">delete</button>
+            <span id="bold_dojo">Ninjas at {{dojo.name}} - {{dojo.ninjas.count}}</span><button type="submit" class="btn btn-warning">delete</button>
             <ul class="ul-list">
               {% for ninja in dojo.ninjas.all %}
               <li>{{ninja.first_name}} {{ninja.last_name}}</li>
