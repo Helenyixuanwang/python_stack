@@ -4,37 +4,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View a book</title>
+    <title>Display Author</title>
 </head>
 <body>
-    <h1>{{title}}</h1>
+    <h1>{{f_name}}{{l_name}}</h1>
     <ul>
-    <li>ID: {{book_id}}</li>
-    <li>Description: {{desc}}</li>
-    <li>Authors:
+    <li>ID: {{author_id}}</li>
+    <li>Notes: {{notes}}</li>
+    <li>Books:
         <ul>
         
-        {% for author in authors %}
+        {% for book in books %}
         <li>
-        {{author.first_name}}{{authors.last_name}}
+        {{book.title}}
         {% endfor %}
         </li>
         </ul>
     </li>
     </ul>
     <div class="input-group mb-3 col-sm-8" >
-        <form action="/books/{{book_id}}/add_author_to_book" method="POST">
+        <form action="/authors/{{author_id}}/add_book_to_author" method="POST">
             {% csrf_token %}
-        <select name="author_id"   class="form-select form-control" id="inputGroupSelect02">
-            <option selected>Select a author...</option>
-            {% for author in all_authors.all %}
-            <option value="{{author.id}}">{{author.first_name}}{{author.last_name}}</option>
+        <select name="book_id"   class="form-select form-control" id="inputGroupSelect02">
+            <option selected>Select a book...</option>
+            {% for book in all_books.all %}
+            <option value="{{book.id}}">{{book.title}}</option>
             {% endfor %}
         </select>
         <label class="input-group-text" for="inputGroupSelect02">Options</label>
         <input type="submit" value="Add">
         </form>
     </div>
-   
 </body>
 </html>
