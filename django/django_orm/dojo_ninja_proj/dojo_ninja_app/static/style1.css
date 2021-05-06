@@ -11,7 +11,9 @@
 
 .bot_h1 {
     text-align: center;
-    border-top: 2px solid black;
+    border-top: 1px solid black;
+    margin-top:30px;
+    padding:10px;
 }
 #bold_dojo {
     font-weight:bold;
@@ -19,8 +21,31 @@
 .bot-div {
     text-align:center;
     display:block;
+
 }
+.bot-div ul {
+    align-items: center;
+    text-align: center;
+}
+
 
 #dojo_form {
     text-align: center;
+}
+
+#dojo_form ul {
+    align-items: center;
+}
+
+.dojo > h1 {
+    margin-bottom: 10px;
+}
+
+.ul-list  {
+    text-align: center;
+    list-style-position: inside;
+}
+
+#bold_dojo {
+    margin-right:10px;
 }

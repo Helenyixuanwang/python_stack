@@ -13,7 +13,7 @@
     />
     <title>Dojos and Ninjas</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'style.css' %}"> 
+    <link rel="stylesheet" href="{% static 'style1.css' %}"> 
   </head>
   <body>
     <div class="container">
@@ -40,24 +40,23 @@
                 <input type="text" name="state" class="form-control" />
               </div>
             </div>
-            <button>Add</button>
+            <button class="btn btn-primary ">Add</button>
           </form>
         </div>
 
         <div class="ninja">
           <h1>Add a Ninja</h1>
+          {% if all_dojo %}
           <form action="/create_ninja" method="POST">
             {% csrf_token %}
             <div class="mb-3 row">
-              <label for="f_name" class="col-sm-2 col-form-label"
-                >First Name</label
-              >
+              <label for="f_name" class="col-sm-2 col-form-label">First Name</label>
               <div class="col-sm-10">
                 <input type="text" name="f_name" class="form-control" />
               </div>
             </div>
             <div class="mb-3 row">
-              <label for="l_name" class="col-sm-2 col-form-label"
+              <label for="l_name" class="col-sm-2 col-form-label "
                 >Last Name</label
               >
               <div class="col-sm-10">
@@ -66,7 +65,7 @@
             </div>
             <div class="mb-3 row">
               <label for="dojo" class="col-sm-2 col-form-label">Dojo</label>
-              <div class="input-group mb-3 col-sm-8">
+              <div class="input-group mb-3 col-sm-6">
                 <select
                   name="dojo"
                   class="form-select form-control"
@@ -84,8 +83,9 @@
               </div>
             </div>
 
-            <button>Add</button>
+            <button btn class="btn-primary">Add</button>
           </form>
+          {% endif %}
         </div>
       </div>
       <div class="bot-div">
@@ -97,9 +97,8 @@
           {% csrf_token %}
           <ul>
             <input type="hidden" name="dojo_id_todelete" value="{{dojo.id}}" />
-            <span id="bold_dojo">Ninjas at {{dojo.name}}</span
-            ><button type="submit">delete</button>
-            <ul>
+            <span id="bold_dojo">Ninjas at {{dojo.name}}</span><button type="submit" class="btn btn-danger">delete</button>
+            <ul class="ul-list">
               {% for ninja in dojo.ninjas.all %}
               <li>{{ninja.first_name}} {{ninja.last_name}}</li>
               {% endfor %}

@@ -13,12 +13,12 @@ def index(request):
 
 
 def create_dojo(request):
-    if request.method == 'POST':
+    if request.method == 'POST'and request.POST['name']:
         new_dojo = Dojo.objects.create(name=request.POST['name'], city=request.POST['city'], state=request.POST['state'])
     return redirect('/')
 
 def create_ninja(request):
-    if request.method == 'POST':
+    if request.method == 'POST'and request.POST['f_name'] and request.POST['l_name']:
         new_ninja = Ninja.objects.create(first_name=request.POST['f_name'], 
         last_name=request.POST['l_name'], 
         dojo_id =request.POST['dojo'])
