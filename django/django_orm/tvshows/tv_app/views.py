@@ -77,8 +77,10 @@ def update(request,show_id):
     
 
 def delete(request,show_id):
-    # if request.method=='POST':
-        show_to_delete=Show.objects.get(id=show_id)
+    if request.method=='POST':
+        show_to_delete=Show.objects.get(id=request.POST['item_to_delete'])
         show_to_delete.delete()
         return redirect('/shows')
+    else:
+        return redirect('/')
     # return HttpResponse(f'place holder for show {show_id} delete')

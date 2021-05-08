@@ -27,7 +27,15 @@
                  <td>{{show.title}}</td>
                  <td>{{show.network}}</td>
                  <td>{{show.release_date}}</td>
-                 <td><a href="/shows/{{show.id}}">show</a>|<a href="/shows/{{show.id}}/edit">edit</a>|<a href="/shows/{{show.id}}/destroy">delete</a></td>
+                 <td>
+                     
+                     <a href="/shows/{{show.id}}">show</a>|<a href="/shows/{{show.id}}/edit">edit</a>|
+                     <form action="/shows/{{show.id}}/destroy" method='POST'>
+                        {% csrf_token %}
+                     <input type="hidden" name="item_to_delete" value="{{show.id}}">
+                     <button type="submit" value="delete" class="btn btn-warning btn-sm">delete</button>
+                    </td>
+                    </form>
                  </tr>
                 {% endfor %}
 

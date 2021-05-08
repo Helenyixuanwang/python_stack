@@ -1,0 +1,12 @@
+.no-link {
+    padding:8px;
+    background-color: grey;
+    text-decoration: none;
+    border-radius: 4px;
+    
+}
+
+.lst {
+    list-style: none;
+}
+
