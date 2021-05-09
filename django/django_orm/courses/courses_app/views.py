@@ -22,10 +22,12 @@ def create(request):
                 messages.error(request, value)
             # redirect the user back to the form to fix the errors
             return redirect('/')
-        new_description = Description.objects.create(desc=request.POST['desc'])
-        new_course = Course.objects.create(name=request.POST['name'],description=new_description)
+        else:
+            new_description = Description.objects.create(desc=request.POST['desc'])
+            new_course = Course.objects.create(name=request.POST['name'],description=new_description)
+            new_course.save()
     
-        return redirect("/")
+            return redirect("/")
 
 def show_delete(request, course_id):
     if request.method == 'GET':
@@ -57,11 +59,14 @@ def comment(request, course_id):
         return render(request, 'comment.html', context)
     
     if request.method == 'POST':
+        errors = Comment.objects.basic_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect(f'/courses/comment/{course_id}')
 
-        comment = Comment.objects.create(comment = request.POST['comment'], course = this_course)
-        
-
-        
-        return redirect(f'/courses/comment/{course_id}')
+        else:
+            comment = Comment.objects.create(comment = request.POST['comment'], course = this_course)
+            return redirect(f'/courses/comment/{course_id}')
 
 

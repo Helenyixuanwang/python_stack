@@ -14,6 +14,14 @@ class CourseManager(models.Manager):
             errors['desc'] = "Description should be at least 15 characters"
         return errors
 
+class CommentManager(models.Manager):
+    def basic_validator(self, postData):
+        errors = {}
+        # add keys and values to errors dictionary for each invalid field
+        if len(postData['comment']) < 15:
+            errors['name'] = "Comment should be at least 15 characters"
+        return errors
+
 
 class Description(models.Model): #one course has one description, one to one relationship, add 
     desc = models.TextField()
@@ -37,3 +45,5 @@ class Comment(models.Model):# one course may havve many comments, so course vs. 
     course = models.ForeignKey(Course, related_name = "comments" , on_delete = models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    objects = CommentManager()
