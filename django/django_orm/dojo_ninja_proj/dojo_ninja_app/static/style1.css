@@ -1,45 +1,65 @@
+
+.container {
+    background-color:darkseagreen;
+    
+    margin:0px auto;
+    width:970px;
+    font-size:15pt;
+    padding:10px;
+}
+
 #top-half {
     display:flex;
-    align-items: center;
-    justify-content:space-evenly
+    /* align-items: center; */
+    justify-content:space-between;
 }
-.container {
-    background-color: cornflowerblue;
-    height:900px;
+
+.h1-head {
+    text-align: center;
+}
+
+.dojo {
+    justify-content:right;
+    flex:1;
     padding:10px;
+    width:30%;
+    
 }
 
-.bot_h1 {
-    text-align: center;
-    border-top: 1px solid black;
-    margin-top:30px;
+.ninja {
+    justify-self: center;
+    flex:1;
     padding:10px;
-}
-#bold_dojo {
-    font-weight:bold;
-}
-.bot-div {
-    text-align:center;
-    display:block;
-
-}
-.bot-div ul {
-    align-items: center;
-    text-align: center;
+    width:30%;
+    justify-content: left;
 }
 
-
-#dojo_form {
-    text-align: center;
+.input1 {
+    padding:5px 10px 5px 5px;
+    display:flex;
+    justify-content: space-between;
+    
+}
+.input2 {
+    padding:5px;
+    
+}
+.btn-input {
+    text-align: right;
+}
+.title {
+    flex:1;
+    padding-left:0px;
+    text-align:right;
+    margin-right:10px;   
 }
 
-#dojo_form ul {
-    align-items: center;
+.content {
+    flex:2;
+    height:20px;
 }
 
-.dojo > h1 {
-    margin-bottom: 10px;
-}
+
 
 .ul-list  {
     text-align: center;
@@ -48,4 +68,21 @@
 
 #bold_dojo {
     margin-right:10px;
+}
+
+#for-select {
+    height:25px;
+}
+
+/* bottom css */
+
+.bot-div {
+    text-align: center;
+}
+
+.bot_h1 {
+    text-align: center;
+    border-top: 1px solid black;
+    margin-top:10px;
+    padding-top: 10px;
 }
