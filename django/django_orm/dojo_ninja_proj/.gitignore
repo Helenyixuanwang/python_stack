@@ -1,0 +1,4 @@
+__pycachei__/
+.vscode/
+venv/
+db.sqlite3
