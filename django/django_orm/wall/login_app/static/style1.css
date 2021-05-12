@@ -1,0 +1,15 @@
+.message-span {
+    color:blue;
+}
+
+.comment-span {
+    color:green;
+}
+
+hr > p {
+    text-indent: 50px;
+}
+
+.comment-indent {
+    text-indent: 100px;
+}
