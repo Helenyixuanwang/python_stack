@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>display a book</title>
+</head>
+<body>
+    <h1>Welcome, {{request.session.logged_user}}</h1>
+    <hr>
+{% if request.session.user_id  == this_book.uploaded_by.id %}
+ <form action="/books/{{this_book.id}}/update" method='POST'>
+     {% csrf_token %}
+ 
+    <label for="title" name="title" ></label>
+    <input type="text" name="title" value="{{this_book.title}}">
+    <br>
+    <label for="desc" name="description">Description</label>
+    <input type="text" name="desc" value="{{this_book.desc}}">
+    <input type="submit" value="Update">
+
+</form>
+
+{% else %}
+    <p>{{this_book.title}}</p>
+    <p>{{this_book.desc}}</p>
+{% endif %}
+
+    <p>added by {{this_book.uploaded_by.first_name}}</p>
+    <p>added on {{this_book.created_at}}</p>
+    <p>Last updated on {{this_book.updated_on}}</p>
+
+
+    <h2>user who like this book</h2>
+    {% for user in this_book.users_who_like.all %}
+        <ul> 
+            {% if user.id == request.session.user_id %}
+            <li>{{user.first_name}} {{user.last_name}}  <a href="/books/{{this_book.id}}/unfavor">Un-favorite</a></li>
+            {% else %}
+            <li>{{user.first_name}} {{user.last_name}}</li>
+            {% endif %}
+
+        </ul>
+    {% endfor %}
+
+</body>
+</html>

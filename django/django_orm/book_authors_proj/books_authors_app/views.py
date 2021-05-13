@@ -31,7 +31,7 @@ def show_book(request,book_id):
     return render(request, 'showbook.html', context)
 
 def add_author_to_book(request,book_id):
-    pass
+
     if request.method == 'POST':
         print(request.POST['author_id'])
         this_book=Book.objects.get(id=book_id)
