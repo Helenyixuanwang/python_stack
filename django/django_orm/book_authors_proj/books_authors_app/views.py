@@ -20,11 +20,9 @@ def add_book(request):
 def show_book(request,book_id):
     this_book=Book.objects.get(id=book_id)
     context = {
-        'book_id': this_book.id,
-        'desc': this_book.desc,
-        'title':this_book.title,
-        'authors': this_book.authors.all(),
-        'all_authors': Author.objects.all(),
+        'this_book':this_book,
+        'authors': this_book.authors.all(), 
+        'all_authors': Author.objects.exclude(books__id=book_id), #copy from solution
         
         
     }
@@ -60,14 +58,17 @@ def authors(request):
 
 def show_author(request, author_id):
     this_author = Author.objects.get(id=author_id)
+
     context = {
         'author_id': this_author.id,
-        'f_name': this_author.first_name,
-        'l_name': this_author.last_name,
-        'notes' : this_author.notes,
+        # 'f_name': this_author.first_name,
+        # 'l_name': this_author.last_name,
+        # 'notes' : this_author.notes,
         'authors': Author.objects.all(),
-        'all_books':Book.objects.all(),
-        'books': this_author.books.all(),
+        'all_books':Book.objects.exclude(authors__id=author_id), #copy from solution
+        # 'books': this_author.books.all(),
+        'this_author':this_author,
+
         
     }
     return render(request, 'showauthor.html', context)

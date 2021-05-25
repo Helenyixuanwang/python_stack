@@ -6,6 +6,7 @@ import re # the regex model
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
+
 class BookManager(models.Manager):
     def basic_validator(self, postData):
         errors = {}
@@ -21,6 +22,9 @@ class BookManager(models.Manager):
 class UserManager(models.Manager):
     def basic_validator(self, postData):
         errors = {}
+        FIRST_NAME_REGEX = re.compile(r'^[a-zA-Z ]+$')
+        if not  FIRST_NAME_REGEX.match(postData['f_name']):             
+            errors['first_name_format'] = "Invalid name"
         # add keys and values to errors dictionary for each invalid field
         if len(postData['f_name']) < 2:
             errors['f_name'] = "First name should be at least 2 characters"

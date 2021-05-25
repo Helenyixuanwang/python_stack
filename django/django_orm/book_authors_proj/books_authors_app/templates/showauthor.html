@@ -7,10 +7,11 @@
     <title>Display Author</title>
 </head>
 <body>
-    <h1>{{f_name}}{{l_name}}</h1>
+    <a href="/">go back</a>
+    <h1>{{this_author.first_name}}{{this_author.last_name}}</h1>
     <ul>
-    <li>ID: {{author_id}}</li>
-    <li>Notes: {{notes}}</li>
+    <li>ID: {{this_author.id}}</li>
+    <li>Notes: {{this_author.notes}}</li>
     <li>Books:
         <ul>
         
@@ -23,7 +24,7 @@
     </li>
     </ul>
     <div class="input-group mb-3 col-sm-8" >
-        <form action="/authors/{{author_id}}/add_book_to_author" method="POST">
+        <form action="/authors/{{this_author.id}}/add_book_to_author" method="POST">
             {% csrf_token %}
         <select name="book_id"   class="form-select form-control" id="inputGroupSelect02">
             <option selected>Select a book...</option>

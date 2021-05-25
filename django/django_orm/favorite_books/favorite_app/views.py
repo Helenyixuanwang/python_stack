@@ -46,12 +46,12 @@ def success(request):
     if 'user_id' not in request.session:
         return redirect('/')
     this_user = User.objects.get(id=request.session['user_id'])
-    all_users = User.objects.all()
+    
     all_books = Book.objects.all()
-
+    # print(f'there are {all_books.count} books')
     context = {
         'this_user':this_user,
-        'all_users': all_users,
+        
         'all_books': all_books,
     }
     return render(request, 'welcome.html',context)
@@ -68,21 +68,32 @@ def add_book(request):
             for key, value in errors.items():
                 messages.error(request, value)
             print(errors)
+            return redirect('/books')
         this_user = User.objects.get(id= request.session['user_id'])
-        this_book = Book.objects.create(title=request.POST['title'],
-                                        desc = request.POST['desc'],
-                                        uploaded_by = this_user)
+        this_book = Book.objects.create(title=request.POST['title'],desc = request.POST['desc'],uploaded_by = this_user)
         this_book.users_who_like.add(this_user)
 
         return redirect('/books')
     return redirect('/')
 
+def delete(request, book_id):
+    
+        print("book id to delete is ", book_id)
+        book_to_delete = Book.objects.get(id=book_id)
+        book_to_delete.delete()
+        return redirect('/books')
+    
+    
+    
+
 def display_book(request, book_id):
     
         this_book = Book.objects.get(id=book_id)
+        this_user = User.objects.get(id=request.session['user_id'])
 
         context = {
             'this_book':this_book,
+            'this_user':this_user,
         }
         return render(request, "display_book.html", context)
 
@@ -90,14 +101,20 @@ def update(request, book_id):
 
 
     if request.method == 'POST':
+        errors = Book.objects.basic_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            print(errors)
+            return redirect(f'/books/{book_id}')
         
         book_to_update = Book.objects.get(id=book_id)
         book_to_update.title = request.POST['title']
         book_to_update.desc = request.POST['desc']
         # book_to_update.updated_at = 
         book_to_update.save()
-    return redirect(f'/books/{book_id}')
-   
+        return redirect(f'/books/{book_id}')
+
 def add_favorite(request,book_id):
     this_book = Book.objects.get(id=book_id)
     this_user = User.objects.get(id= request.session['user_id'])
