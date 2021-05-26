@@ -7,11 +7,11 @@
     <title>welcome</title>
 </head>
 <body>
-    <h1>Success! Welcome {{request.session.username}}</h1>
-    {% if request.session.new %}
-    <p>You have successfully registered !</p>
+    
+    {% if request.session.first_name %}
+    <h1>Success! Welcome {{request.session.first_name}}</h1><p>You have successfully registered !</p>
     {% else %}
-    <p>You have successfully logged in!</p>
+    <h1>Success! Welcome {{request.session.user_fname}}</h1><p>You have successfully logged in!</p>
     {% endif %}
     
     
