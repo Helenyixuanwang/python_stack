@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from .forms import CreateUserForm
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate,logout
 from django.contrib import messages
 
 # Create your views here.
@@ -13,6 +13,7 @@ def register(request):
             form.save()
             
             first_name = form.cleaned_data.get('first_name')
+            # first_name = form.cleaned_data.get_full_name()
 
             # password = form.cleaned_data.get('password1')
             
@@ -45,3 +46,7 @@ def login_page(request):
     form = CreateUserForm()
     context = {'form':form}
     return render(request,'index.html', context)
+
+def logout_user(request):
+    logout(request)
+    return redirect('/')

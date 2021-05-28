@@ -15,10 +15,12 @@ def register(request):
         bound_form = RegistrationForm(request.POST)
     # Now test that bound_form using built-in methods!
     # *************************
-    print(bound_form.is_valid())
+        bound_form.save()
+        print(bound_form.is_valid())
     
     
-    print(bound_form.errors) 
+        print(bound_form.errors) 
+        return render(request,"index.html")
     
 
 
