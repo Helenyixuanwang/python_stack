@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div id="wrapper">
+    <h1 id="chosen">Add notes below</h1>
+   <!-- <p id="selected">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, facilis id. Labore quia, cupiditate quam deserunt corrupti quibusdam placeat animi.</p> -->
+    {% for note in all_notes %} 
+    <form id="display-form" action="/update/{{note.id}}" method='POST'>
+    {% csrf_token %}
+        
+        <h4>{{note.title}}</h4>
+        <label for="desc">description</label>
+        <textarea name="desc" id="" cols="15" rows="15">{{note.desc}}</textarea>
+        <input type="submit" value= "update a Note">
+    
+        <form id="delete-form" action="/delete" method='POST'>
+            {% csrf_token %}
+            <input type="hidden" name="note_to_delete" value="{{note.id}}">
+            <input type="submit" value="delete">
+        </form>
+    </form>
+    
+        <hr>
+
+        
+    {% endfor %}
+
+
+
+
+    <form id="create_form" action="/create" method='POST'>
+        {% csrf_token %} 
+        <label for="title"></label>
+        <input type="text" name="title" placeholder="insert note title here">
+
+        <label for="desc"></label>
+        <textarea name="desc" id="" cols="15" rows="15" placeholder="enter description here"></textarea>
+        <input type="submit" value="Add Note">
+        
+    </form>
+</div>
+    <script>
+        console.log("this works")
+        console.log(document)
+        // $("#chosen").click(function(e) {
+        //     console.log(e)
+            
+        //     $.ajax({
+        //         url:"https://swapi.dev/api/people/4",
+        //         method: "get",
+        //         success: function(serverResponse) {
+        //             console.log(serverResponse)
+        //             document.getElementById("selected").innerHTML = `the user you have requested for :${serverResponse.name}`
+        //         }
+
+        //     })
+        // })
+        $('#create_form').submit(function(e){
+            e.preventDefault();
+            console.log(e);
+            console.log("form was submitted");
+            console.log("#create_form"),
+            $.ajax({
+                url: '/create',
+                method:'post',
+                data: $(this).serialize(),
+                success: function(serverResponse){
+                    console.log("this is AJAX working");
+                    console.log(serverResponse);
+                    document.getElementById("wrapper").innerHTML = serverResponse;
+                    
+                }           
+            })
+        })
+    
+
+    </script>
+    
+</body>
+</html>

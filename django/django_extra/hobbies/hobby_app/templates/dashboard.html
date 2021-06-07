@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <title>welcome</title>
+</head>
+<body>
+    
+    {% if request.session.name %}
+    <h1>Success! Welcome {{request.session.name}}</h1><p>You have successfully registered !</p>
+    {% else %}
+    <h1>Success! Welcome {{request.session.name}}</h1><p>You have successfully logged in!</p>
+    {% endif %}
+
+    <span><a href="/logout">Logout</a></span>
+
+    <a href="/hobbies/new">Create a new hobby!</a>
+
+    <h3>Your hobby list:</h3>
+
+    <table class="table table-striped">
+        <thead>
+            <th>Hobby Name</th>
+            <th>Description</th>
+            <th>How many buddies like this</th>
+            <th>Actions</th>
+        </thead>
+        <tbody>
+            {% for hobby in all_hobbies %} 
+             <tr>
+                 <td><a href="hobbies/{{hobby.id}}">{{hobby.name}}</a></td>
+                 <td>{{hobby.description}}</td>
+                 <td>{{hobby.like.count}}</td>
+                 <td>{% if this_user.id == request.session.user_id %}
+                     <a href="/hobbies/{{hobby.id}}/delete">remove</a>| <a href="/hobbies/{{hobby.id}}/edit">edit</a>
+                     {% endif %}
+                </td>
+             </tr>
+             {% endfor %}
+             {% for hobby in liked_hobbies.all %}
+             <tr>
+                 <td><a href="hobbies/{{hobby.id}}">{{hobby.name}}</a></td>
+                 <td>{{hobby.description}}</td>
+                 <td>{{hobby.like.count}}</td>
+                 <td><a href="/hobbies/{{hobby.id}}/dislike">Dislike</a></td>
+             </tr>
+             {% endfor %}
+        </tbody>
+        
+    </table>
+<hr>
+<h2>Buddies' hobbies</h2>
+
+<table class="table table-striped">
+    <thead>
+        <th>Hobby Name</th>
+        <th>Description</th>
+        <th>How many buddies like this</th>
+        <th>add to your liked hobbies?</th>
+    </thead>
+    <tbody>
+        {% for hobby in others_hobbies %} 
+         <tr>
+             <td><a href="hobbies/{{hobby.id}}">{{hobby.name}}</a></td>
+             <td>{{hobby.description}}</td>
+             <td>{{hobby.like.count}}</td>
+             <td><a href="/hobbies/{{hobby.id}}/like">Like it?</td>
+         </tr>
+         {% endfor %}
+    </tbody>
+    
+</table>
+    
+    
+</body>
+</html>

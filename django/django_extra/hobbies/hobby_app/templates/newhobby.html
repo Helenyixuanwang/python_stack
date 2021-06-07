@@ -1,0 +1,27 @@
+<h2>Hello {{this_user.first_name}}, Let's create a new hobby! </h2>
+<a href="/dashboard">dashboard</a>
+<a href="/logout">logout</a>
+{% if messages %}
+<ul class="messages">    
+    {% for message in messages %}    
+    <span><li  {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li></span>  
+    {% endfor %}
+</ul>
+{% endif %}
+
+<form action="/hobbies/create" method='POST' enctype = "multipart/form-data">
+    {% csrf_token %} 
+    <label for="name">Name:</label>
+    <input type="text" name="name">
+    <br>
+
+    <label for="description">Description</label>
+    <textarea name="description"  cols="5" rows="10"></textarea>
+    <br>
+    
+    <br>
+    <br>
+    
+    <input type="submit" value="create a new hobby">
+    <a href="/dashboard">Cancel</a>
+</form>

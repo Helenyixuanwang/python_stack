@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display a Hobby</title>
+</head>
+<body>
+    <h2>Hello, {{this_user.first_name}}, read about this hobby</h2>
+    <a href="/dashboard">dashboard</a>
+    <a href="/logout">Logout</a>
+    <ul>
+        <ol>Hobby Name: {{this_hobby.name}}</ol>
+        <ol>Description: {{this_hobby.description}}</ol>
+        <ol>created by <a href="/user/{{this_hobby.creator.id}}/display">{{this_hobby.creator.first_name}} {{this_hobby.creator.last_name}}</a></ol>
+    </ul>
+
+    <h3>buddies who also like this hobby</h3>
+    
+        {% for user in this_hobby.like.all %}
+        <ul>
+            <ol>
+                {{user.first_name}} {{user.last_name}}
+            </ol>
+        </ul>
+        {% endfor %}
+    
+</body>
+</html>

@@ -1,0 +1,24 @@
+
+<h1>{{this_user.first_name}} Let's edit this hobby</h1>
+{% if messages %}
+<ul class="messages">    
+    {% for message in messages %}    
+    <span><li  {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li></span>  
+    {% endfor %}
+</ul>
+{% endif %}
+
+<form action="/hobbies/{{this_hobby.id}}/update" method='POST'>
+    {% csrf_token %} 
+
+
+    <label for="name" >Name:</label>
+    <input type="text" name="name" value = {{this_hobby.name}}>
+    <br>
+
+    <label for="description">Description</label>
+    <textarea name="description"  cols="5" rows="10">{{this_hobby.description}}</textarea>
+    <br>
+    <input type="submit" value="update">
+    <a href="/dashboard">Cancel</a>
+</form>

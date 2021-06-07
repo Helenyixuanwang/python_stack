@@ -21,7 +21,7 @@ def create_ninja(request):
     if request.method == 'POST'and request.POST['f_name'] and request.POST['l_name']:
         new_ninja = Ninja.objects.create(first_name=request.POST['f_name'], 
         last_name=request.POST['l_name'], 
-        dojo_id =request.POST['dojo'])
+        dojo=request.POST['dojo'])
     return redirect('/')
 
 def delete_dojo(request):
