@@ -20,11 +20,11 @@
         <textarea name="desc" id="" cols="15" rows="15">{{note.desc}}</textarea>
         <input type="submit" value= "update a Note">
     
-        <form id="delete-form" action="/delete" method='POST'>
+        <!-- <form id="delete-form" action="/delete" method='POST'>
             {% csrf_token %}
             <input type="hidden" name="note_to_delete" value="{{note.id}}">
             <input type="submit" value="delete">
-        </form>
+        </form> -->
     </form>
     
         <hr>
@@ -35,7 +35,7 @@
 
 
 
-    <form id="create_form" action="/create" method='POST'>
+    <form class="create_form" action="" method='POST'>
         {% csrf_token %} 
         <label for="title"></label>
         <input type="text" name="title" placeholder="insert note title here">
@@ -49,26 +49,14 @@
     <script>
         console.log("this works")
         console.log(document)
-        // $("#chosen").click(function(e) {
-        //     console.log(e)
-            
-        //     $.ajax({
-        //         url:"https://swapi.dev/api/people/4",
-        //         method: "get",
-        //         success: function(serverResponse) {
-        //             console.log(serverResponse)
-        //             document.getElementById("selected").innerHTML = `the user you have requested for :${serverResponse.name}`
-        //         }
-
-        //     })
-        // })
-        $('#create_form').submit(function(e){
+    
+        $('.create_form').submit(function(e){
             e.preventDefault();
             console.log(e);
             console.log("form was submitted");
-            console.log("#create_form"),
+            console.log(".create_form"),
             $.ajax({
-                url: '/create',
+                url: '/create_ajax',
                 method:'post',
                 data: $(this).serialize(),
                 success: function(serverResponse){

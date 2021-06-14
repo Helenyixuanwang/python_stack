@@ -1,11 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Buddie display{% endblock %}
+{% block head %}
+{{ block.super }}
+{% endblock %}
+{% block content %}
 <h2>Let's read this buddies' hobbies</h2>
-<a href="/dashboard">dashboard</a>
-<a href="/logout">Logout</a>
+
 <p>{{this_user.first_name}} {{this_user.last_name}} joined this site on {{this_user.created_at |date:'Y-m-d' }}</p>
 
 <p>All the hobbies {{this_user.first_name}} likes</p>
 <ul>
     {% for hobby in this_user.liked_hobbies.all %} 
-    <ol>{{hobby.name}}</ol>
+    <li><a href="/hobbies/{{hobby.id}}">{{hobby.name}}</a></li>
     {% endfor %}
 </ul>
+{% endblock %}

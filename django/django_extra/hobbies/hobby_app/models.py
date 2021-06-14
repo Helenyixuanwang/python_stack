@@ -1,5 +1,8 @@
 from django.db import models
 
+
+
+
 # Create your models here.
 
 from django.db.models.deletion import CASCADE # the regex model
@@ -57,8 +60,8 @@ class HobbyManager(models.Manager):
             errors['name'] = "Hobby name should be at least 3 characters"
         if len(postData['description']) < 3:
             errors['description'] = "Hobby description should be at least 3 characters"
-        if a_hobby:
-            errors['hobby_duplicate'] = "This hobby already exists, create another one"
+        # if a_hobby:
+        #     errors['hobby_duplicate'] = "This hobby already exists, create another one"
 
         return errors
 
@@ -66,13 +69,42 @@ class HobbyManager(models.Manager):
 class Hobby(models.Model):
     name = models.CharField(max_length=255)
     description= models.TextField()
-    hobby_img = models.ImageField(null=True, blank=True, upload_to="images/")
+    hobby_img = models.ImageField(default='default.jpg',upload_to="images/")
+    # hobby_img = DefaultStaticImageField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     creator = models.ForeignKey(User,related_name="hobbies", on_delete=CASCADE)
     like = models.ManyToManyField(User, related_name="liked_hobbies")
 
     objects = HobbyManager()
+    def __str__(self):
+        return self.name
+
+class CommentManager(models.Manager):
+    def basic_validator(self, postData):
+        
+        errors = {}
+        
+        # add keys and values to errors dictionary for each invalid field
+        
+        if len(postData['content']) < 6:
+            errors['content'] = "Comment should be at least 6 characters"
+        
+        return errors
+    
+
+
+class Comment(models.Model):
+    content = models.TextField()
+    poster = models.ForeignKey(User,related_name="user_comments", on_delete=CASCADE)
+    hobby_comment = models.ForeignKey(Hobby,related_name="hobby_comments",on_delete=CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    objects = CommentManager()
+    
+
+
 
 
 

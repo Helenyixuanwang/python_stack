@@ -68,7 +68,8 @@ def logout(request):
 def post_message(request):
     if request.method == 'POST':
         this_user = User.objects.get(id=request.session['user_id'])
-        this_message = Message.objects.create(message=request.POST['message'], user=this_user)
+        
+        this_message = Message.objects.create(message=request.POST['message'], user=this_user, message_img = request.FILES.get('image'))
         print(f'this message id is {this_message.id}, created by {this_user.first_name}')
 
         return redirect('/success')

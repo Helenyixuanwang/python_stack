@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Map</title>
+    <style>
+        #map {
+            height:500px;
+            width:100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Google Map</h1>
+    <div id="map">
+
+    </div>
+
+<script>
+    function initMap() {
+        //map options
+        var options = {
+            zoom :13,
+            center: {lat:47.608013 , lng:-122.335167} //seattle
+        }
+        //new map
+        var map = new google.maps.Map(document.getElementById('map'), options)
+
+        //add markers
+        var marker = new google.maps.Marker({
+            position : {lat:47.6205, lng:-122.3493},//marker on space needle
+            map:map,
+            // icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+        });
+
+        var infoWindow = new google.maps.InfoWindow({
+            content :'<h1> Space Needle</h1>'  //info on marker
+        });
+        //add listner to marker infowindow
+        marker.addListener('click', function() {
+            infoWindow.open(map, marker);
+        });
+    }
+</script>
+
+
+
+
+    <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8rQSM-NQ1Ji09vNzsfOFiwI8layWZjx0&callback=initMap">
+</script>
+</body>
+</html>

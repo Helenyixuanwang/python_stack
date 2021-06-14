@@ -47,6 +47,7 @@ class User(models.Model):
 # User vs. Message: one to many
 class Message(models.Model):
     message = models.TextField()
+    message_img = models.ImageField(null=True, blank=True,upload_to="images/%y")
     user = models.ForeignKey(User,related_name="user_messages", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

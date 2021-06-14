@@ -12,11 +12,13 @@
     <h1>Welcome {{this_user.first_name}}</h1><a href="/logout">Log out</a>
     <h2>Successfully registered</h2>
 
-    <form action="/post_message" method='POST'>
+    <form action="/post_message" method='POST' enctype="multipart/form-data">
     {% csrf_token %}
     <div class="input1">
     <label for="message" class="l-title">Post a Message</label>
     <input type="textarea" name="message" class="h-text l-content">
+    <p>Add image</p>
+    <input type="file" name="image">
     <input type="submit" value="Post a message">
     </div>
     </form>
@@ -29,7 +31,9 @@
     
     {% for message in user.user_messages.all reversed %}
     <hr>
-    
+    <!-- {% if message.message_img %} -->
+     <img src="/media/{{message.message_img}}" width="30%" height="30%">
+     <!-- {% endif %} -->
       <p class="message-indent" ><span class="message-span">{{message.message}} created by {{ user.first_name}} {{user.last_name}} at {{message.created_at}}</span></p>
             {% for comment in message.message_comments.all %}
           <p class="comment-indent"><span class="comment-span">{{comment.comment}}</span> commented by {{comment.user.first_name}} at {{comment.created_at}}</p>

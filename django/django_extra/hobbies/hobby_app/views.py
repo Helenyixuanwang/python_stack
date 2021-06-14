@@ -2,6 +2,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 
 from .models import *
+# from .forms import HobbyForm
 import bcrypt
 from django.contrib import messages
 
@@ -88,13 +89,20 @@ def create_hobby(request):
             for key, value in errors.items():
                 messages.error(request, value)
             return redirect('/hobbies/new')
-        new_hobby = Hobby.objects.create(name=request.POST['name'],
+        if Hobby.objects.filter(name=request.POST['name']):
+            messages.error(request, "This hobby already exist, create another one")
+            return redirect('/hobbies/new')
+        else:
+            new_hobby = Hobby.objects.create(name=request.POST['name'],
                                         description = request.POST['description'],
+                                        hobby_img = request.FILES.get('image'),
                                         creator = this_user)
 
-        this_user.liked_hobbies.add(new_hobby)
-        messages.success(request,"You have created a new hobby")
-        return redirect('/dashboard')
+            this_user.liked_hobbies.add(new_hobby)
+            messages.success(request,"You have created a new hobby")
+            return redirect('/dashboard')
+    
+    
 
 def delete_hobby(request, hobby_id):
     if 'user_id' not in request.session:
@@ -118,6 +126,8 @@ def edit_hobby(request, hobby_id):
 
 
 def update_hobby(request, hobby_id):
+    if 'user_id' not in request.session:
+        return redirect("/")
     if request.method == 'POST':
         errors= Hobby.objects.basic_validator(request.POST)
         if len(errors) > 0:
@@ -140,6 +150,7 @@ def display_hobby(request, hobby_id):
     context = {
         'this_hobby':this_hobby,
         'this_user':this_user,
+        'all_comments': this_hobby.hobby_comments.all()
         
         
         
@@ -166,4 +177,32 @@ def dislike(request, hobby_id):
     this_user.liked_hobbies.remove(this_hobby)
     return redirect('/dashboard')
 
+# comment
+def post_comment(request,hobby_id):
+    if request.method == 'POST':
+        this_user = User.objects.get(id=request.session['user_id'])
+        this_hobby = Hobby.objects.get(id=hobby_id)
+        errors= Comment.objects.basic_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect(f'/hobbies/{hobby_id}')
+        new_comment = Comment.objects.create(content=request.POST['content'],
+                                        hobby_comment =this_hobby,
+                                        poster = this_user)
 
+        # messages.success(request,"You have created a comment")
+
+        all_comments = this_hobby.hobby_comments.all()
+        # context = {
+        #     'all_comments':all_comments,
+        # }
+        return redirect(f'/hobbies/{hobby_id}')
+
+
+def delete_comment(request, comment_id):
+
+    comment_to_delete = Comment.objects.get(id=comment_id)
+    hobby_id = comment_to_delete.hobby_comment.id
+    comment_to_delete.delete()
+    return redirect(f'/hobbies/{hobby_id}')

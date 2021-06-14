@@ -17,7 +17,11 @@ urlpatterns = [
     path('hobbies/<int:hobby_id>/update', views.update_hobby),
     path('hobbies/create',views.create_hobby),
     path('hobbies/<int:hobby_id>/like', views.like),
-    path('hobbies/<int:hobby_id>/dislike', views.dislike)
+    path('hobbies/<int:hobby_id>/dislike', views.dislike),
+
+    path('hobbies/<int:hobby_id>/comment' ,views.post_comment),
+    path('comment/<comment_id>/delete', views.delete_comment)
+    
     
     
 ]

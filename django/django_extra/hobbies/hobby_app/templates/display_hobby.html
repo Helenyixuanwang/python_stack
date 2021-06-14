@@ -1,20 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Display a Hobby</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block title %}Hobby display{% endblock %}
+{% block head %}
+{{ block.super }}
+{% endblock %}
+{% block content %}
     <h2>Hello, {{this_user.first_name}}, read about this hobby</h2>
-    <a href="/dashboard">dashboard</a>
-    <a href="/logout">Logout</a>
+    
     <ul>
         <ol>Hobby Name: {{this_hobby.name}}</ol>
         <ol>Description: {{this_hobby.description}}</ol>
         <ol>created by <a href="/user/{{this_hobby.creator.id}}/display">{{this_hobby.creator.first_name}} {{this_hobby.creator.last_name}}</a></ol>
     </ul>
+    {% if messages %}
+<ul class="messages">    
+    {% for message in messages %}    
+    <span class="error_display"><li  {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li></span>  
+    {% endfor %}
+</ul>
+{% endif %}
+
+    <form action="/hobbies/{{this_hobby.id}}/comment"  method='POST'>
+        {% csrf_token %} 
+        <label for="content"></label>
+        <input type="text" name="content">
+        <input type="submit" value="create a comment" class="btn btn-primary">
+    </form>
 
     <h3>buddies who also like this hobby</h3>
     
@@ -25,6 +35,37 @@
             </ol>
         </ul>
         {% endfor %}
+        <hr>
+        <h3>Read about buddies' comments for {{this_hobby.name}}</h3>
+      
+        <table class="table table-striped">
+            <thead>
+                
+                    <th>Content</th>
+                    <th>Poster</th>
+                    <th>Post time</th>
+                    <th>Action</th>
+                
+            </thead>
+                <tbody>
+                    {% for comment in all_comments reversed %} 
+                    <tr class="table-info">
+                        <td>{{comment.content}} </td>                      
+                        <td><a href="/user/{{comment.poster.id}}/display">{{comment.poster.first_name}} {{comment.poster.last_name}}</a> </td>
+                        <td>{{comment.created_at|date:'Y-m-d'}}</td>
+                        <td>{% if comment.poster.id == this_user.id %}
+                            <a class="btn btn-primary" href="/comment/{{comment.id}}/delete">delete</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+           
+       
+        
+        </table>
+        
+        
+        
     
-</body>
-</html>
+{% endblock %}

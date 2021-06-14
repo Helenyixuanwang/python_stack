@@ -1,0 +1,55 @@
+#logout {
+    justify-content: right;
+    color:blue;
+}
+
+.error_display {
+    color:red;
+}
+
+.hobby-row {
+    display:flex;
+    justify-content: space-between;
+    border: 1px solid grey;
+    border-radius: 8px;
+    /* box-shadow:4px 4px grey; */
+    margin:20px;
+    padding:15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.hobby-img {
+    flex:4;
+    width:100%;
+    height:auto;
+    border-right:2px solid grey;
+    margin:auto;
+    
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+}
+.h-img {
+    width:100%;
+    height:auto;
+
+}
+.hobby-content {
+    padding:20px;
+    flex:3;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.hobby-text {
+    text-align: center;
+    margin:10px;
+    padding:5px;
+}
+
+.self-edit {
+    margin:auto;
+}
+
+
+
+
+
+

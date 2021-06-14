@@ -28,6 +28,7 @@ def create_ajax(request):
         }
         return render(request, 'index.html',context)
     
+    
 
 def edit_note(request, note_id):
     this_note = Note.objects.get(id = note_id)
