@@ -5,6 +5,7 @@ urlpatterns = [
     path('', views.index),
     path('dashboard', views.dashboard),
     path('user/create', views.create),
+    path('user/go_create', views.go_create),
     path('user/<user_id>/display',views.display_buddie),
 
     path('login', views.login),

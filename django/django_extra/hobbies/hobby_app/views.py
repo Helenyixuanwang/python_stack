@@ -18,7 +18,7 @@ def create(request):
         if len(errors) > 0:
             for key, value in errors.items():
                 messages.error(request, value)
-            return redirect('/')
+            return redirect('/user/go_create')
 
         password = request.POST['pw']
         pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
@@ -46,6 +46,9 @@ def login(request):
             errors= messages.error(request,"Log in Email or password is not right")
         errors= messages.error(request,"Log in Email or password is not right")
     return redirect('/')
+
+def go_create(request):
+    return render(request,'create_user.html')
 
 def dashboard(request):
     if 'user_id' not in request.session:
@@ -137,7 +140,7 @@ def update_hobby(request, hobby_id):
         else:
             hobby_to_update = Hobby.objects.get(id=hobby_id)
             hobby_to_update.name = request.POST['name']
-        
+            hobby_to_update.hobby_img = request.FILES.get('image') or hobby_to_update.hobby_img
             hobby_to_update.description = request.POST['description']
             hobby_to_update.save()
             return redirect('/dashboard')

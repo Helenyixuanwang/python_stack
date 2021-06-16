@@ -74,7 +74,7 @@ class Hobby(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     creator = models.ForeignKey(User,related_name="hobbies", on_delete=CASCADE)
-    like = models.ManyToManyField(User, related_name="liked_hobbies")
+    like = models.ManyToManyField(User, related_name="liked_hobbies",blank=True)
 
     objects = HobbyManager()
     def __str__(self):

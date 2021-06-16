@@ -4,6 +4,8 @@
 {{ block.super }}
 {% endblock %}
 {% block content %}
+
+<div class="bg-img">
     
     {% if request.session.name %}
     <h3>Welcome {{request.session.name}}</h3><p>You have successfully registered !</p>
@@ -14,72 +16,61 @@
 
 
    
+    <div id="h-upload">
+    <h3>You uploaded drawings are here!</h3>
+    <a class="btn btn-warning" href="/hobbies/new">upload a drawing</a>
+    </div>
+    {% for hobby in all_hobbies %}
+        {% if forloop.first %}<div class="row ">{% endif %}
+        <div class="col-lg-4 col-md-4 col-12" >
+        <div class="text-center mt-2 ">
+        <img src="/media/{{hobby.hobby_img}}" height="70%" width="70%" class="img-thumbnail img-display" alt="...">
+        <h4 class="text-center" >{{hobby.name}}</h4>
+        
+        <p class="hobby-text">like: {{hobby.like.count}}</p>
+        <div class="self-edit">
+            {% if this_user.id == request.session.user_id %}
+            <a href="/hobbies/{{hobby.id}}/delete" class="btn btn-light btn-hobby">remove</a>
+            <a href="hobbies/{{hobby.id}}/edit" class="btn btn-light btn-hobby">edit</a>
+            {% endif %}
+        </div>
+        </div>
+        </div>
+        {% if forloop.counter|divisibleby:3 %}
+        </div>
+        <div class="row">{% endif %}
+            {% if forloop.last %}</div>{% endif %}
 
-    <h3>Your hobby list:</h3>
-
-    <!-- <table class="table table-striped table-primary table-hover">
-        <thead>
-            <th>Hobby Name</th>
-            <th>Description</th>
-            <th>Image</th>
-            <th>How many buddies like this</th>
-            <th>Actions</th>
-        </thead>
-        <tbody> -->
-            {% for hobby in all_hobbies reversed %} 
-            <div class="hobby-row">
-                <div class="hobby-img" >
-                <img class="h-img" src="/media/{{hobby.hobby_img}}"> 
-                </div>
-                <div class="hobby-content">
-                
-                <h4 class="hobby-text">{{hobby.name}}</h4>
-                <p class="hobby-text">{{hobby.description}}</p>
-                <p class="hobby-text">like: {{hobby.like.count}}</p>
-                
-                    <div class="self-edit">
-                    {% if this_user.id == request.session.user_id %}
-                    <a href="/hobbies/{{hobby.id}}/delete" class="btn btn-primary btn-hobby">remove</a>
-                    <a href="hobbies/{{hobby.id}}/edit" class="btn btn-primary btn-hobby">edit</a>
-                    {% endif %}
-                    </div>
-                
-                </div>
-            </div>
-            {% endfor %}
-             {% for hobby in liked_hobbies.all %}
-             <div class="hobby-display" width="50%">
-                 <a href="hobbies/{{hobby.id}}">{{hobby.name}}</a>
-                 {{hobby.description}}
-                 {{hobby.like.count}}
-                 <a href="/hobbies/{{hobby.id}}/dislike">Dislike</a>
-             </div>
-             {% endfor %}
+        {% endfor %}
+        
+    
+         
+     
         
         
 
 <hr>
-<h2>Buddies' hobbies</h2>
+<h2>Buddies' drawings</h2>
 
-<table class="table table-striped">
-    <thead>
-        <th>Hobby Name</th>
-        <th>Description</th>
-        <th>How many buddies like this</th>
-        <th>add to your liked hobbies?</th>
-    </thead>
-    <tbody>
-        {% for hobby in others_hobbies %} 
-         <tr>
-             <td><a href="hobbies/{{hobby.id}}">{{hobby.name}}</a></td>
-             <td>{{hobby.description}}</td>
-             <td>{{hobby.like.count}}</td>
-             <td><a href="/hobbies/{{hobby.id}}/like"><img src="static/images/thumbs-up.svg" alt="fdff"></td>
-         </tr>
-         {% endfor %}
-    </tbody>
-    
-</table>
+        {% for hobby in others_hobbies %}
+        {% if forloop.first %}<div class="row ">{% endif %}
+        <div class="col-lg-4 col-md-4 col-12" >
+        <div class="text-center mt-2">
+        <a href="/hobbies/{{hobby.id}}"><img src="/media/{{hobby.hobby_img}}" height="70%" width="70%" class="img-thumbnail" alt="..."></a>
+        <h4 class="text-center" >{{hobby.name}}</h4>
+        
+        <p class="hobby-text">like: {{hobby.like.count}}</p>
+        
+        </div>
+        </div>
+        {% if forloop.counter|divisibleby:3 %}
+        </div>
+        <div class="row">{% endif %}
+            {% if forloop.last %}</div>{% endif %}
+
+        {% endfor %}
+
+</div>
     
     
 {% endblock %}

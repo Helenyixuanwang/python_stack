@@ -75,3 +75,18 @@ ul > span {
     text-align: center;
 }
 
+.bg-img {
+    /* The image used */
+    /* background-image: url("images/default.jpg"); */
+    background-color: darkorchid;
+  
+    min-height: 380px;
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+
+
