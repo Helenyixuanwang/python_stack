@@ -1,3 +1,7 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
 login-img {
     width:100%;
     height: auto;
@@ -12,6 +16,27 @@ login-img {
     position: relative;
 
 }
+
+section {
+    display: flex;
+  justify-content: center;
+  align-items:center;
+    min-height:100vh;
+    background:linear-gradient(-30deg, #03a9f4 0%,#3a78b7 50%,#262626 50%, #607d8b 100%);
+  /* filter: hue-rotate(120deg); */
+  animation : animate 10s linear infinite;
+  }
+  @keyframes animate
+  {
+      0% 
+      {
+          filter: hue-rotate(0deg);
+      }
+      100% 
+      {
+          filter: hue-rotate(360deg);
+      }
+  }
 
 .container {
     padding: 20px;
@@ -35,13 +60,14 @@ ul > span {
     color: blue;
 }
 
-.background {
+/* for register page */
+/* .background {
     background-image: url("images/default.jpg");
     height:auto;
     background-repeat: repeat;
-    background-size: cover;
+    background-color:#000;
     
-}
+} */
 
 .reg {
     height:100%;
@@ -50,14 +76,8 @@ ul > span {
 #reg-container {
     background-color:white;
 }
-body, html {
-    height: 100%;
-  }
 
 #signup-link:hover, #signup-link:active  {
     color: green;
 
 }
-
-
-    

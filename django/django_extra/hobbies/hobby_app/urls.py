@@ -7,6 +7,8 @@ urlpatterns = [
     path('user/create', views.create),
     path('user/go_create', views.go_create),
     path('user/<user_id>/display',views.display_buddie),
+    path('user/<user_id>/edit', views.edit_user),
+    path('user/<user_id>/update', views.update_user),
 
     path('login', views.login),
     path('logout', views.logout),

@@ -9,22 +9,32 @@
     
     {% if request.session.name %}
     <h3>Welcome {{request.session.name}}</h3><p>You have successfully registered !</p>
+    <h2>You can upload your paintings or drawings now.</h2>
     {% else %}
-    <h3>Success! Welcome {{this_user.first_name}}</h3><p>You have successfully logged in!</p>
+    <h3>Welcome {{this_user.first_name}}</h3><p>You have successfully logged in! 
+        {% if this_user.hobbies.count %}
+        You have already uploaded {{this_user.hobbies.count}} drawings.
+        {% else %}
+        You have not uploaded any posts! <a href="/hobbies/new">go upload!</a>
+        {% endif %}
     {% endif %}
+    </p>
+    <hr>
 
 
 
    
     <div id="h-upload">
-    <h3>You uploaded drawings are here!</h3>
-    <a class="btn btn-warning" href="/hobbies/new">upload a drawing</a>
+    {% if this_user.hobbies.count %}
+    <h3 class="text-center">Your uploaded drawings are here!</h3>
+    {% endif %}
+    
     </div>
-    {% for hobby in all_hobbies %}
+    {% for hobby in all_hobbies reversed %}
         {% if forloop.first %}<div class="row ">{% endif %}
         <div class="col-lg-4 col-md-4 col-12" >
         <div class="text-center mt-2 ">
-        <img src="/media/{{hobby.hobby_img}}" height="70%" width="70%" class="img-thumbnail img-display" alt="...">
+        <a href="/hobbies/{{hobby.id}}"><img src="/media/{{hobby.hobby_img}}" height="70%" width="70%" class="img-thumbnail img-display" alt="{{hobby.hobby_name}}"></a>
         <h4 class="text-center" >{{hobby.name}}</h4>
         
         <p class="hobby-text">like: {{hobby.like.count}}</p>
@@ -50,13 +60,13 @@
         
 
 <hr>
-<h2>Buddies' drawings</h2>
+<h2 class="text-center">Buddies' drawings</h2>
 
-        {% for hobby in others_hobbies %}
+        {% for hobby in others_hobbies reversed %}
         {% if forloop.first %}<div class="row ">{% endif %}
         <div class="col-lg-4 col-md-4 col-12" >
         <div class="text-center mt-2">
-        <a href="/hobbies/{{hobby.id}}"><img src="/media/{{hobby.hobby_img}}" height="70%" width="70%" class="img-thumbnail" alt="..."></a>
+        <a  href="/hobbies/{{hobby.id}}"><img src="/media/{{hobby.hobby_img}}" height="70%" width="70%" class="img-thumbnail img-display " alt="{{hobby.hobby_name}}"></a>
         <h4 class="text-center" >{{hobby.name}}</h4>
         
         <p class="hobby-text">like: {{hobby.like.count}}</p>

@@ -43,6 +43,7 @@ class User(models.Model):
     last_name =  models.CharField(max_length=255)
     email = models.CharField(max_length=255)
     password = models.TextField()
+    user_img = models.ImageField(default='default.png',upload_to="images/")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -69,8 +70,8 @@ class HobbyManager(models.Manager):
 class Hobby(models.Model):
     name = models.CharField(max_length=255)
     description= models.TextField()
-    hobby_img = models.ImageField(default='default.jpg',upload_to="images/")
-    # hobby_img = DefaultStaticImageField(blank=True)
+    hobby_img = models.ImageField(upload_to="images/")
+    
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     creator = models.ForeignKey(User,related_name="hobbies", on_delete=CASCADE)

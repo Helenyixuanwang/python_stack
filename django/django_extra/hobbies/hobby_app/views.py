@@ -64,7 +64,8 @@ def dashboard(request):
         'all_hobbies': Hobby.objects.filter(creator = this_user),
         'liked_hobbies': Hobby.objects.filter(like = this_user).exclude(creator = this_user),
         # all hobbies created by buddies
-        'others_hobbies': Hobby.objects.exclude(creator= this_user).exclude(like= this_user),
+        # 'others_hobbies': Hobby.objects.exclude(creator= this_user).exclude(like= this_user),
+        'others_hobbies': Hobby.objects.exclude(creator= this_user),
     
     }
 
@@ -74,6 +75,19 @@ def logout(request):
     
         request.session.flush()
         return redirect('/')
+
+def edit_user(request,user_id):
+    if 'user_id' not in request.session:
+        return redirect('/')
+    this_user = User.objects.get(id=request.session['user_id'])
+    return render(request,'edit_user.html',{'this_user':this_user})
+def update_user(request, user_id):
+    if request.method == 'POST':
+        this_user = User.objects.get(id= user_id)
+        this_user.user_img = request.FILES.get('user_img') or this_user.user_img
+        this_user.save()
+        return render(request,'display_buddie.html',{'this_user':this_user})
+
 
 def new(request):
     if 'user_id' not in request.session:
@@ -101,8 +115,8 @@ def create_hobby(request):
                                         hobby_img = request.FILES.get('image'),
                                         creator = this_user)
 
-            this_user.liked_hobbies.add(new_hobby)
-            messages.success(request,"You have created a new hobby")
+            
+            # messages.success(request,"You have created a new hobby")
             return redirect('/dashboard')
     
     
@@ -143,7 +157,7 @@ def update_hobby(request, hobby_id):
             hobby_to_update.hobby_img = request.FILES.get('image') or hobby_to_update.hobby_img
             hobby_to_update.description = request.POST['description']
             hobby_to_update.save()
-            return redirect('/dashboard')
+            return redirect(f'/hobbies/{hobby_id}')
     return redirect('/dashboard')
 
 def display_hobby(request, hobby_id):
@@ -172,13 +186,13 @@ def like(request, hobby_id):
     this_hobby = Hobby.objects.get(id=hobby_id)
     this_user = User.objects.get(id=request.session['user_id'])
     this_user.liked_hobbies.add(this_hobby)
-    return redirect('/dashboard')
+    return redirect(f'/hobbies/{hobby_id}')
 
 def dislike(request, hobby_id):
     this_hobby = Hobby.objects.get(id=hobby_id)
     this_user = User.objects.get(id=request.session['user_id'])
     this_user.liked_hobbies.remove(this_hobby)
-    return redirect('/dashboard')
+    return redirect(f'/hobbies/{hobby_id}')
 
 # comment
 def post_comment(request,hobby_id):

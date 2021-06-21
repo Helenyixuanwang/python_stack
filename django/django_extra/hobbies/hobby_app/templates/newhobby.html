@@ -6,7 +6,7 @@
 {% block content %}
 
 <div class="container">
-<h2>Hello {{this_user.first_name}}, Let's create a new hobby! </h2>
+<h2>Hello {{this_user.first_name}}, Let's upload a new drawing! </h2>
 
 {% if messages %}
 <ul class="messages">    
@@ -19,23 +19,28 @@
 <form action="/hobbies/create" method='POST' enctype="multipart/form-data">
     {% csrf_token %} 
    
-   
+    <div class="mb-3">
     <label for="name">Name:</label>
     <input type="text" name="name" class="form-control">
-    <br>
-
+    </div>
+    
+    <div class="mb-3">
     <label for="description">Description</label>
     <textarea name="description"  cols="5" rows="10" class="form-control"></textarea>
-    <br>
+    </div>
     
-    <br>
     
+    
+    <div class="mb-3">
     <input type="file" name="image">
+    </div>
     
-    <br>
     
+    <div class="mb-3">
     <input type="submit" value="create a new hobby" type="button" class="btn btn-primary">
+    
     <a href="/dashboard" type="button" class="btn btn-primary">Cancel</a>
+    </div>
 </form>
 </div>
 {% endblock %}
